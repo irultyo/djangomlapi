@@ -22,4 +22,4 @@ EXPOSE 5000
 ENV SCRIPT_NAME "/batik_product/28"
 
 WORKDIR /app/web
-CMD exec granian --interface wsgi --host 0.0.0.0 --port 5000 --workers 2 --threads 4 web.wsgi:application
+CMD exec granian --interface wsgi --host 0.0.0.0 --port 5000 --workers 1 --threads 4 web.wsgi:application
