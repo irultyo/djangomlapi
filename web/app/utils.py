@@ -20,7 +20,6 @@ def braycurtis(x, y):
 def get_image(index):
     npy_dir = Path(settings.BASE_DIR) / 'app' / 'npy'
     paths = np.load(npy_dir / 'paths_webp.npy')
-    print(paths[index])
     return paths[index]
 
 # Home function utils
@@ -107,7 +106,7 @@ def postprocess(output_image):
     current_dateTime = datetime.now()
     current_dateTime = current_dateTime.strftime('%d%m%y%H%M%S')
     result_name = "result-"+current_dateTime+".png"
-    output_image.save(base_dir / 'staticfiles' / 'images' / 'result' / result_name)
+    output_image.save(base_dir / 'staticfiles' / 'images' / 'results' / result_name)
     return result_name
 
 def generate_image(patch_a, patch_b, model_name):
@@ -134,7 +133,7 @@ def generate_image(patch_a, patch_b, model_name):
     outputs = session.run([output_name], input_dict)
     output_image = outputs[0][0]
     output_path = postprocess(output_image)
-    return output_path
+    return base_dir / 'staticfiles' / 'images' / 'results' / output_path
 
 # api
 def png_to_base64(png_file_path):
@@ -190,6 +189,6 @@ def api_generate_image(patch_a, patch_b, model_name):
     outputs = session.run([output_name], input_dict)
     output_image = outputs[0][0]
     output_path = postprocess(output_image)
-    output_path = base_dir / 'staticfiles' / 'images' / 'result' / output_path
+    output_path = base_dir / 'staticfiles' / 'images' / 'results' / output_path
     return png_to_base64(output_path)
 

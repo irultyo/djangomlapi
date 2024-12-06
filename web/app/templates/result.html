@@ -44,12 +44,12 @@
       <h3>Result</h3>
     </div>
     <div class="row d-flex justify-content-center">
-      {% for model, image_path in data %}
+      {% for model, base64_image in data %}
       <div class="col-md-4">
         <div class="fancy-title title-border title-center mb-2">
           <h4>{{model}}</h4>
         </div>
-        <img src="{% static 'images/result/'|add:image_path %}" alt="">
+        <img src="{{base64_image}}" alt="">
       </div>
       {% endfor %}
     </div>

@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from . import utils
+from django.utils.safestring import mark_safe
 
 def home(requests):
     product_name="Batik RVGAN"
@@ -18,10 +19,11 @@ def result(requests):
     patches = requests.POST.getlist('select_image_patch')
     patch_a, patch_b = int(patches[0]), int(patches[1])
     path_a, path_b = utils.get_image(patch_a), utils.get_image(patch_b) 
-    paths = []
+    base64_images = []
     for model_name in model_names:
         result = utils.generate_image(patch_a, patch_b, model_name)
-        paths.append(result)
-
-    data = zip(model_names, paths)
+        result = utils.png_to_base64(result)
+        result = mark_safe(f"data:image/jpeg;base64,{result}")
+        base64_images.append(result)
+    data = zip(model_names, base64_images)
     return render(requests, 'result.html', locals())
