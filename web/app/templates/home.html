@@ -1,0 +1,62 @@
+<style>
+  #page-title {
+    padding: 3rem 0;
+  }
+
+  .image-patch img {
+    width: 150px;
+    cursor: pointer;
+  }
+</style>
+{% extends 'base.html' %}
+
+
+{% load static %}
+{% block content %}
+<section id="page-title">
+  <div class="container clearfix">
+    <h1>Application Product Details</h1>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="https://batik.umm.ac.id/">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Product</li>
+      <li class="breadcrumb-item active" aria-current="page">{{product_name}}</li>
+    </ol>
+  </div>
+</section>
+
+
+<section class="contact-section pt-5" id="predict">
+  <div class="container">
+    <div class="title-box centred">
+      <div class="sec-title">Select Patch Image to Generate Batik</div><br>
+    </div>
+
+    <!-- EDIT START-->
+    <form action="{% url 'select_patch' %}" method="POST" id="patchForm">
+      {% csrf_token %}
+      <div class="row">
+        {% for paths, index_patch in patches %}
+        <div class="col d-flex justify-content-center">
+          <div style="width:180px">
+            <input type="radio" class="visually-hidden" id='radio-select-img-patch{{ forloop.counter }}'
+              value='{{ index_patch }}' name="index" />
+            <label for="radio-select-img-patch{{ forloop.counter }}">
+              <img src="{% static 'images/patches_webp/'|add:paths %}"
+                onclick="selectAndSubmit({{ forloop.counter }})" />
+            </label>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </form>
+</section>
+
+
+<script>
+  function selectAndSubmit(idx) {
+    document.getElementById('radio-select-img-patch' + idx).checked = true;
+    document.getElementById('patchForm').submit();
+  }
+</script>
+
+{% endblock %}

@@ -1,0 +1,19 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+web/app/static/images/result/*.png
+web/staticfiles/images/result/*.png
+web/app/models/*.onnx
+web/static/
+
+.env 
+.env.prod
+jenkinsfile

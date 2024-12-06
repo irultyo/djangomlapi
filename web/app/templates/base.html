@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Central Batik Intelligence | UMM</title>
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <style>
+    /* Add some padding to the body to prevent content from being hidden behind the fixed navbar */
+    body {
+      padding-top: 90px;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    nav {
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+    
+    .nav-link{
+      text-decoration: none !important;
+      font-family: 'Poppins', sans-serif;
+      color: #444;
+      font-size: 0.8125rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    } 
+    
+    .nav-link:hover {
+      color: #1ABC9C; 
+    }
+
+    .footer-link a{
+      text-decoration: none !important;
+      font-family: 'Poppins', sans-serif;
+      color: #fff;
+      font-size: 0.8125rem;
+      letter-spacing: 1px;
+    } 
+    
+    .footer-link a:hover {
+      color: #1ABC9C; 
+    }
+
+    footer {
+      color: white;
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+    }
+
+    @media screen and (max-width: 1024px) {
+      body {
+        padding-top: 80px
+      }
+    } 
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+    <div class="container">
+      <a href="#" class="navbar-brand">
+        <h1>Batik</h1>
+      </a>
+
+      <a class="nav-link" href="#">Back to Home</a>
+    </div>
+  </nav>
+  {% block content %} {% endblock %}
+
+  <footer id="footer" class="bg-dark">
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="widget">
+            <h2>BATIK</h2>
+            <p style="text-align:justify">We always provide the best service to make it easy for researchers to stimulate new research ideas in the field of batik.</p>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="widget footer-link">
+            <h4>Batik Research Product</h4>
+              <ul>
+                <li><a href="https://batik.umm.ac.id/batik_product/26">Batik GAN</a></li>
+                <li><a href="https://batik.umm.ac.id/batik_product/4">Batik Retrieval</a></li>
+                <li><a href="https://batik.umm.ac.id/batik_product/1">Batik Classification</a></li>
+              </ul>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="widget">
+            <h4>Supported By</h4>
+            <div class="col">
+              <div class="link mb-2"><a href="http://www.umm.ac.id/"><img src="{% static 'images/logos/logo_umm.png' %}" alt="logo_umm" style="width:155px;height:60px;"></a></div>
+            </div>
+            <div class="col">
+              <div class="link mb-2"><a href="http://informatika.umm.ac.id/"><img src="{% static 'images/logos/logo_labit.png' %}" alt="logo_umm" style="width:155px;height:60px;"></a></div>
+            </div>
+            <div class="col">
+              <div class="link mb-2"><a href="https://lk.umm.ac.id/"><img src="{% static 'images/logos/logo_lk_revisi.png' %}" alt="logo_umm" style="width:155px;height:60px;"></a></div>
+            </div>
+
+            <div class="col">
+              <div class="link"><a href="#"><img src="https://batik.umm.ac.id/assets/images/logo_ppbi.webp" alt="PPBI Sekar Jagad" style="width:140px;height:50px;"></a></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="widget">
+            <h4>Contact Us</h4>
+            <div class="col">
+              <div class="entry-title">
+                <h4><a href="https://goo.gl/maps/coG17mrPc4cTGMsr8">Jl. Raya Tlogomas No.246, Jawa Timur 65144, Indonesia</a></h4>
+              </div>
+            </div>
+            <div class="col mt-2">
+              Email: 
+              
+<div class="entry-title">
+                                                            <h4><a href="mailto:aguseko@umm.ac.id">aguseko@umm.ac.id</a>
+                                                            </h4>
+                                                        </div>
+            </div>
+            <div class="col mt-2">
+              Phone:
+              
+<div class="entry-title">
+                                                            <h4>(0341) 464318, ext 252</h4>
+                                                        </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="copyrights" class="bg-dark">
+                <div class="container">
+                    <div class="row col-mb-30">
+                        <div class="col-md-6 text-center text-md-start">
+                            <div class="copyright"><a href="/">IRC-UMM</a> &copy; 2022 All Right Reserved. Developed by Informatics Researcher</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

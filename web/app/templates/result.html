@@ -1,0 +1,67 @@
+<style>
+  #page-title {
+    padding: 3rem 0;
+  }
+
+  .image-patch img {
+    width: 150px;
+    cursor: pointer;
+  }
+</style>
+{% extends 'base.html' %}
+
+
+{% load static %}
+{% block content %}
+<section id="page-title">
+  <div class="container clearfix">
+    <h1>Application Product Details</h1>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="https://batik.umm.ac.id/">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Product</li>
+      <li class="breadcrumb-item active" aria-current="page">{{product_name}}</li>
+    </ol>
+  </div>
+</section>
+
+
+<section class="contact-section pt-5 mb-5" id="predict">
+  <div class="container">
+    <div class="fancy-title title-border title-center mb-3">
+      <h3>Query Patch Batik</h3>
+    </div>
+    <div class="row d-flex justify-content-center">
+      <div class="col-sm-2">
+        <img src="{% static 'images/patches_webp/'|add:path_a %}" alt="">
+      </div>
+      <div class="col-sm-2">
+        <img src="{% static 'images/patches_webp/'|add:path_b %}" alt="">
+      </div>
+    </div>
+  </div>
+  <div class="container mt-3">
+    <div class="fancy-title title-border title-center">
+      <h3>Result</h3>
+    </div>
+    <div class="row d-flex justify-content-center">
+      {% for model, image_path in data %}
+      <div class="col-md-4">
+        <div class="fancy-title title-border title-center mb-2">
+          <h4>{{model}}</h4>
+        </div>
+        <img src="{% static 'images/result/'|add:image_path %}" alt="">
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+
+<script>
+  function selectAndSubmit(idx) {
+    document.getElementById('radio-select-img-patch' + idx).checked = true;
+    document.getElementById('patchForm').submit();
+  }
+</script>
+
+{% endblock %}
