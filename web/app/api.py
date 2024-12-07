@@ -36,7 +36,7 @@ class GenerateView(APIView):
         
         images = {}
         for md in model:
-            img = utils.api_generate_image(patch_a, patch_b, md)
+            img = utils.generate_image(patch_a, patch_b, md)
             images[md] = img
 
         if patch_a is not None and patch_b is not None and model is not None:

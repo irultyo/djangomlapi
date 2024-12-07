@@ -1,6 +1,7 @@
 import numpy as np
 import base64
 import random
+import io
 from datetime import datetime
 from PIL import Image
 import onnxruntime as ort
@@ -100,14 +101,18 @@ def postprocess(output_image):
     base_dir = Path(settings.BASE_DIR)
     output_image = (output_image * 0.5 + 0.5) * 255
     output_image = np.clip(output_image, 0, 255).astype(np.uint8)
-#    output_image = np.transpose(output_image, (1, 2, 0))
     output_image = Image.fromarray(output_image)
 
-    current_dateTime = datetime.now()
-    current_dateTime = current_dateTime.strftime('%d%m%y%H%M%S')
-    result_name = "result-"+current_dateTime+".png"
-    output_image.save(base_dir / 'staticfiles' / 'images' / 'results' / result_name)
-    return result_name
+    #current_dateTime = datetime.now()
+    #current_dateTime = current_dateTime.strftime('%d%m%y%H%M%S')
+    #result_name = "result-"+current_dateTime+".png"
+    #output_image.save(base_dir / 'staticfiles' / 'images' / 'results' / result_name)
+    
+    buffer = io.BytesIO()
+    output_image.save(buffer, format='JPEG')
+    image_bytes = buffer.getvalue()
+    base64_image = base64.b64encode(image_bytes).decode('utf8')
+    return "data:image/jpeg;base64"+base64_image
 
 def generate_image(patch_a, patch_b, model_name):
     base_dir = Path(settings.BASE_DIR)
@@ -132,63 +137,6 @@ def generate_image(patch_a, patch_b, model_name):
 
     outputs = session.run([output_name], input_dict)
     output_image = outputs[0][0]
-    output_path = postprocess(output_image)
-    return base_dir / 'staticfiles' / 'images' / 'results' / output_path
-
-# api
-def png_to_base64(png_file_path):
-    """
-    Convert a PNG image file to a Base64 encoded string.
-
-    :param png_file_path: Path to the PNG image file
-    :return: Base64 encoded string of the image
-    """
-    try:
-        # Use pathlib to handle the file path
-        png_path = Path(png_file_path)
-
-        # Check if the file exists
-        if not png_path.is_file():
-            raise FileNotFoundError(f"The file {png_path} does not exist.")
-
-        # Read the image file in binary mode
-        with png_path.open("rb") as image_file:
-            # Encode the binary data to Base64
-            base64_encoded = base64.b64encode(image_file.read())
-
-        # Convert the Base64 bytes to a string
-        base64_string = base64_encoded.decode('utf-8')
-        return base64_string
-
-    except FileNotFoundError as fnf_err:
-        print(fnf_err)
-    except Exception as err:
-        print(f"An error occurred: {err}")
-
-def api_generate_image(patch_a, patch_b, model_name):
-    base_dir = Path(settings.BASE_DIR)
-
-    models = {
-        'batikgan_sl': base_dir / 'app' / 'models' / 'batikgan_sl.onnx',
-        'batikgan_cl': base_dir / 'app' / 'models' / 'batikgan_cl.onnx',
-        'batikrvgan': base_dir / 'app' / 'models' / 'batikrvgan.onnx',    
-    }
-
-    patch_a = preprocess(patch_a)
-    patch_b = preprocess(patch_b)
-    
-    session = ort.InferenceSession(models[model_name])
-    input_name = [input_node.name for input_node in session.get_inputs()]
-    output_name = session.get_outputs()[0].name
-    
-    input_dict = {
-        input_name[0]: patch_a,
-        input_name[1]: patch_b
-    }
-
-    outputs = session.run([output_name], input_dict)
-    output_image = outputs[0][0]
-    output_path = postprocess(output_image)
-    output_path = base_dir / 'staticfiles' / 'images' / 'results' / output_path
-    return png_to_base64(output_path)
+    base64_image = postprocess(output_image)
+    return base64_image
 
