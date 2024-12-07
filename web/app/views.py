@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from . import utils
 from django.utils.safestring import mark_safe
+import gc
+
 
 def home(requests):
     product_name="Batik RVGAN"
@@ -25,5 +27,7 @@ def result(requests):
         result = utils.png_to_base64(result)
         result = mark_safe(f"data:image/jpeg;base64,{result}")
         base64_images.append(result)
+        gc.collect()
     data = zip(model_names, base64_images)
+    gc.collect()
     return render(requests, 'result.html', locals())
