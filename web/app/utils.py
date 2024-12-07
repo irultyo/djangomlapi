@@ -7,6 +7,7 @@ from PIL import Image
 import onnxruntime as ort
 from pathlib import Path
 from django.conf import settings
+from django.utils.safestring import mark_safe
 
 def braycurtis(x, y):
     if x.shape != y.shape: 
@@ -93,7 +94,6 @@ def preprocess(index):
     image = image.resize((128,128), Image.LANCZOS)
     image_array = np.array(image, dtype=np.float32)
     image_array = (image_array / 255.0 - 0.5) / 0.5
-    #image_array = np.transpose(image_array, (2, 0, 1))
     image_array = np.expand_dims(image_array, axis=0)
     return image_array
 
@@ -110,9 +110,8 @@ def postprocess(output_image):
     
     buffer = io.BytesIO()
     output_image.save(buffer, format='JPEG')
-    image_bytes = buffer.getvalue()
-    base64_image = base64.b64encode(image_bytes).decode('utf8')
-    return "data:image/jpeg;base64"+base64_image
+    base64_image = base64.b64encode(buffer.getvalue()).decode('utf8')
+    return mark_safe(f"data:image/jpeg;base64,{base64_image}")
 
 def generate_image(patch_a, patch_b, model_name):
     base_dir = Path(settings.BASE_DIR)
