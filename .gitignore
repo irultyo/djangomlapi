@@ -10,7 +10,7 @@ wheels/
 .venv
 
 web/app/static/images/result/*.png
-web/app/static/images/results/*.png
+web/staticfiles/images/results/*.png
 web/staticfiles/images/result/*.png
 web/app/models/*.onnx
 web/static/
