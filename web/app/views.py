@@ -22,8 +22,7 @@ def result(requests):
     patch_a, patch_b = int(patches[0]), int(patches[1])
     path_a, path_b = utils.get_image(patch_a), utils.get_image(patch_b) 
     base64_images = []
-    for model_name in model_names
-        gc.collect():
+    for model_name in model_names:
         result = utils.generate_image(patch_a, patch_b, model_name)
         result = utils.png_to_base64(result)
         result = mark_safe(f"data:image/jpeg;base64,{result}")
