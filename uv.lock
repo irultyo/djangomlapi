@@ -37,6 +37,9 @@ requires-dist = [
     { name = "whitenoise", specifier = ">=6.8.2" },
 ]
 
+[package.metadata.requires-dev]
+dev = []
+
 [[package]]
 name = "beautifulsoup4"
 version = "4.12.3"

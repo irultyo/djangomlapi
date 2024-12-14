@@ -14,6 +14,7 @@ web/staticfiles/images/results/*.png
 web/staticfiles/images/result/*.png
 web/app/models/*.onnx
 web/static/
+web/app/tests.bat
 
 .env 
 .env.prod

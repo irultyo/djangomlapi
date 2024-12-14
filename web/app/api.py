@@ -1,4 +1,5 @@
 from . import utils
+from django.http import HttpResponse
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -49,3 +50,4 @@ class GenerateView(APIView):
             return Response(data, status=status.HTTP_200_OK)
         else:
             return Response({"error": "patch_a, patch_b, and model are required"}, status=status.HTTP_400_BAD_REQUEST)
+

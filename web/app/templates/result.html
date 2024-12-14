@@ -43,7 +43,7 @@
     <div class="fancy-title title-border title-center">
       <h3>Result</h3>
     </div>
-    <div class="row d-flex justify-content-center">
+    <div id="result-container" class="row d-flex justify-content-center">
       {% for model, base64_image in data %}
       <div class="col-md-4">
         <div class="fancy-title title-border title-center mb-2">
@@ -55,13 +55,4 @@
     </div>
   </div>
 </section>
-
-
-<script>
-  function selectAndSubmit(idx) {
-    document.getElementById('radio-select-img-patch' + idx).checked = true;
-    document.getElementById('patchForm').submit();
-  }
-</script>
-
 {% endblock %}

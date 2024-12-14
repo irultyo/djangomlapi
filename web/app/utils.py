@@ -102,16 +102,12 @@ def postprocess(output_image):
     output_image = (output_image * 0.5 + 0.5) * 255
     output_image = np.clip(output_image, 0, 255).astype(np.uint8)
     output_image = Image.fromarray(output_image)
-
-    #current_dateTime = datetime.now()
-    #current_dateTime = current_dateTime.strftime('%d%m%y%H%M%S')
-    #result_name = "result-"+current_dateTime+".png"
-    #output_image.save(base_dir / 'staticfiles' / 'images' / 'results' / result_name)
-    
+        
     buffer = io.BytesIO()
     output_image.save(buffer, format='JPEG')
     base64_image = base64.b64encode(buffer.getvalue()).decode('utf8')
     return mark_safe(f"data:image/jpeg;base64,{base64_image}")
+
 
 def generate_image(patch_a, patch_b, model_name):
     base_dir = Path(settings.BASE_DIR)
@@ -138,4 +134,5 @@ def generate_image(patch_a, patch_b, model_name):
     output_image = outputs[0][0]
     base64_image = postprocess(output_image)
     return base64_image
+
 
